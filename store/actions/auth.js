@@ -5,6 +5,13 @@ let timer;
 
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOG_OUT = "LOG_OUT";
+export const SET_DID_TRY_AUTO_LOG_IN = "SET_DID_TRY_AUTO_LOG_IN";
+
+export const setDidTryAutoLogin = () => {
+  return {
+    type: SET_DID_TRY_AUTO_LOG_IN,
+  };
+};
 
 export const authenticate = (userId, token, expirationDate) => {
   return (dispatch) => {

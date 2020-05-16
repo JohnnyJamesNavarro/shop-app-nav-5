@@ -17,7 +17,8 @@ const StartupScreen = (props) => {
       const userData = await AsyncStorage.getItem("userData");
 
       if (!userData) {
-        props.navigation.navigate("Auth");
+        // props.navigation.navigate("Auth");
+        dispatch(authActions.setDidTryAutoLogin());
         return;
       }
 
@@ -27,13 +28,14 @@ const StartupScreen = (props) => {
 
       // This condition is true when the token is no longer valid of if it doesn't exist.
       if (expDate <= new Date() || !token || !userId) {
-        props.navigation.navigate("Auth");
+        // props.navigation.navigate("Auth");
+        dispatch(authActions.setDidTryAutoLogin());
         return;
       }
 
       const timeLeftForExpiration = expDate.getTime() - new Date().getTime();
 
-      props.navigation.navigate("Shop");
+      // props.navigation.navigate("Shop");
       dispatch(authActions.authenticate(userId, token, timeLeftForExpiration));
     };
 

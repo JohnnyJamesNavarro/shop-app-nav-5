@@ -1,15 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Platform, SafeAreaView, Button, View } from "react-native";
 import * as authActions from "../store/actions/auth";
+import { Ionicons } from "@expo/vector-icons";
 
 import { createStackNavigator } from "@react-navigation/stack";
 import {
   createDrawerNavigator,
   DrawerItemList,
 } from "@react-navigation/drawer";
-
-import { Platform, SafeAreaView, Button, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
 import ProductsOverviewScreen, {
   screenOptions as productsOverviewOptions,
@@ -53,7 +52,7 @@ const defaultNavOptions = {
 // Creating a stack no longer requires an object with the configurations.
 const ProductsStackNavigator = createStackNavigator();
 
-export const ProductsNavigator = () => {
+const ProductsNavigator = () => {
   return (
     <ProductsStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <ProductsStackNavigator.Screen
@@ -77,7 +76,7 @@ export const ProductsNavigator = () => {
 
 const OrdersStackNavigator = createStackNavigator();
 
-export const OrdersNavigator = () => {
+const OrdersNavigator = () => {
   return (
     <OrdersStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <OrdersStackNavigator.Screen
@@ -91,7 +90,7 @@ export const OrdersNavigator = () => {
 
 const AdminStackNavigator = createStackNavigator();
 
-export const AdminNavigator = () => {
+const AdminNavigator = () => {
   return (
     <AdminStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <AdminStackNavigator.Screen
@@ -192,11 +191,3 @@ export const AuthNavigator = () => {
     </AuthStackNavigator.Navigator>
   );
 };
-
-// const MainNavigator = createSwitchNavigator({
-//   Startup: StartupScreen,
-//   Auth: AuthNavigator,
-//   Shop: ShopNavigator,
-// });
-
-// export default createAppContainer(MainNavigator);
