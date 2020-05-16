@@ -211,14 +211,14 @@ const EditProductScreen = (props) => {
   );
 };
 
-EditProductScreen.navigationOptions = (navData) => {
+export const screenOptions = (navData) => {
   const submitFunction = navData.navigation.getParam("submit");
 
   return {
     headerTitle: navData.navigation.getParam("productId")
       ? "Edit Product"
       : "Add Product",
-    headerRight: (
+    headerRight: () => (
       <HeaderButtons HeaderButtonComponent={CustomHeaderButtom}>
         <Item
           title="Save"

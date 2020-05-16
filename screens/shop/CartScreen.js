@@ -90,7 +90,8 @@ function CartScreen() {
   );
 }
 
-CartScreen.navigationOptions = {
+// This new export method works both for function and object-based navigation options.
+export const screenOptions = {
   headerTitle: "Your Cart",
 };
 
