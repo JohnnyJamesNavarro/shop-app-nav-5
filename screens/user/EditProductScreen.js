@@ -51,7 +51,14 @@ const EditProductScreen = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
 
-  const prodId = props.navigation.getParam("productId");
+  // const prodId = props.navigation.getParam("productId");
+  // In RNv5 there's no 'getParam()' function, you access params as keys from a 'params' object through the 'route' prop.
+  // The 'params' object returns 'undefined' when there's no params.
+  // In this case, there are no params if we open the screen as 'Add Product'.
+  // This is an issue because being 'undefined' causes the app to crash.
+  // So, we have to validate if there is something within the 'params' object before using it.
+  const prodId = props.route.params ? props.route.params.productId : null;
+
   const editedProduct = useSelector((state) =>
     state.products.userProducts.find((prod) => prod.id === prodId)
   );
@@ -121,7 +128,23 @@ const EditProductScreen = (props) => {
   }, [dispatch, prodId, formState]);
 
   useEffect(() => {
-    props.navigation.setParams({ submit: submitHandler });
+    // props.navigation.setParams({ submit: submitHandler });
+
+    // In RNv5 there's no need to 'abuse' params to send component data to the navigation options.
+    // With the new setOptions() function we can configure the navigation options from within the component, thus having direct access to component data.
+    props.navigation.setOptions({
+      headerRight: () => (
+        <HeaderButtons HeaderButtonComponent={CustomHeaderButtom}>
+          <Item
+            title="Save"
+            iconName={
+              Platform.OS === "android" ? "md-checkmark" : "ios-checkmark"
+            }
+            onPress={submitHandler}
+          />
+        </HeaderButtons>
+      ),
+    });
   }, [submitHandler]);
 
   const inputChangeHandler = useCallback(
@@ -212,25 +235,10 @@ const EditProductScreen = (props) => {
 };
 
 export const screenOptions = (navData) => {
-  const submitFunction = navData.navigation.getParam("submit");
+  const routeParams = navData.route.params ? navData.route.params : {};
 
   return {
-    headerTitle: navData.navigation.getParam("productId")
-      ? "Edit Product"
-      : "Add Product",
-    headerRight: () => (
-      <HeaderButtons HeaderButtonComponent={CustomHeaderButtom}>
-        <Item
-          title="Save"
-          iconName={
-            Platform.OS === "android" ? "md-checkmark" : "ios-checkmark"
-          }
-          onPress={() => {
-            submitFunction();
-          }}
-        />
-      </HeaderButtons>
-    ),
+    headerTitle: routeParams.productId ? "Edit Product" : "Add Product",
   };
 };
 
