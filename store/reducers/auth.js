@@ -24,7 +24,10 @@ export default (state = initialState, action) => {
         didTryAutoLogin: true,
       };
     case LOG_OUT:
-      return initialState;
+      return {
+        ...initialState,
+        didTryAutoLogin: true,
+      };
     default:
       return state;
   }

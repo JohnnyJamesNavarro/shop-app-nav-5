@@ -49,13 +49,12 @@ const ProductsOverviewScreen = (props) => {
 
   // Adding a listener to re-fetch products when navigating back to this screen.
   useEffect(() => {
-    const willFocusSub = props.navigation.addListener(
-      "willFocus",
-      loadProducts
-    );
+    // In RNv5 there's no willFocus and so on, there's only 'focus' and blur'.
+    // Also, the listener returns a function that you directly execute. There's no need for removing the listener manually.
+    const unsubscribe = props.navigation.addListener("focus", loadProducts);
 
     return () => {
-      willFocusSub.remove();
+      unsubscribe();
     };
   }, [loadProducts]);
 

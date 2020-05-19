@@ -103,7 +103,7 @@ const AuthScreen = (props) => {
     setIsLoading(true);
     try {
       await dispatch(action);
-      props.navigation.navigate("Shop");
+      // props.navigation.navigate("Shop"); // There's no need to navigate manually since our dinamically rendered navigators change automatically depending on state.
     } catch (error) {
       setError(error.message);
       setIsLoading(false);
